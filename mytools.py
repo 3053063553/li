@@ -8,9 +8,27 @@ plt.rcParams["font.sans-serif"] = ["SimHei"]  # 设置字体
 
 # 读取SPSS格式数据
 
-
+import pandas as pd  
+import matplotlib.pyplot as plt  
+  
+def 绘制单个类别变量柱状图(data_frame, variable:str):  
+    """绘制单个类别变量柱状图"""  
+    x = data_frame[variable]  
+        
+    # 创建柱状图    
+    plt.bar(range(len(x)), x)   
+        
+    # 设置图表标题和坐标轴标签    
+    plt.title("单类别变量柱状图")    
+    plt.xlabel("数据索引")    
+    plt.ylabel(variable)    
+        
+    # 显示图表    
+    plt.show()
+    
+    
 def 读取SPSS数据(文件所在位置及名称):
-    """ 读取SPSS文件，保留标签内容和有序变量顺序 """
+    """ 读取SPSS文件,保留标签内容和有序变量顺序 """
     result, metadata = pyreadstat.read_sav(
         文件所在位置及名称, apply_value_formats=True, formats_as_ordered_category=True)
     return result, metadata
