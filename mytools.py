@@ -10,6 +10,12 @@ import plotly.express as px
 # 绘图设置
 plt.rcParams["font.sans-serif"] = ["SimHei"]  # 设置字体
 
+def 使用plotly绘制类别变量柱状图(数据表, 类别变量):
+    temp = 数据表[类别变量].value_counts().reset_index()
+    fig = px.bar(temp, x=类别变量, y='count', labels={'count': '数量'})
+    # 显示图表
+    fig.show()
+
 # 读取SPSS格式数据
 
 import pandas as pd  
@@ -331,6 +337,14 @@ def 相关比率强弱判断(相关比率: float):
         return "低度相关"
     else:
         return "微弱相关或不相关"
+
+def 使用标准差判断数值变量异常值(数据表, 数值变量):
+    mean = 数据表[数值变量].mean()
+    std = 数据表[数值变量].std()
+    condition1 = (数据表[数值变量] < mean - 3 * std) | (数据表[数值变量] > mean + 3 * std)
+    # 识别异常值
+    outliers1 = 数据表[condition1]
+    print('使用标准差判断的异常值为：', outliers1)
 
 
 def 计算单变量均值的置信区间(数据表路径及文件名, 变量名, 置信水平=0.95):
